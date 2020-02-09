@@ -3,8 +3,8 @@ pipeline {
   stages {
     stage('Code pull') {
       steps {
-        checkout(scm: scm, poll: true)
         sh 'checkout scm'
+        checkout(scm: scm, poll: true)
       }
     }
 
@@ -22,16 +22,16 @@ pipeline {
       post {
         always {
           step([$class: 'CoberturaPublisher',
-                                             autoUpdateHealth: false,
-                                             autoUpdateStability: false,
-                                             coberturaReportFile: 'reports/coverage.xml',
-                                             failNoReports: false,
-                                             failUnhealthy: false,
-                                             failUnstable: false,
-                                             maxNumberOfBuilds: 10,
-                                             onlyStable: false,
-                                             sourceEncoding: 'ASCII',
-                                             zoomCoverageChart: false])
+                                                       autoUpdateHealth: false,
+                                                       autoUpdateStability: false,
+                                                       coberturaReportFile: 'reports/coverage.xml',
+                                                       failNoReports: false,
+                                                       failUnhealthy: false,
+                                                       failUnstable: false,
+                                                       maxNumberOfBuilds: 10,
+                                                       onlyStable: false,
+                                                       sourceEncoding: 'ASCII',
+                                                       zoomCoverageChart: false])
         }
 
       }
@@ -114,7 +114,7 @@ pipeline {
 
     failure {
       emailext(subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'", body: """<p>FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-                               <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""", recipientProviders: [[$class: 'DevelopersRecipientProvider']])
+                                     <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""", recipientProviders: [[$class: 'DevelopersRecipientProvider']])
     }
 
   }
